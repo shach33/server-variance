@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script>
+function sleep(delay) {
+        var start = new Date().getTime();
+        while (new Date().getTime() < start + delay);
+}
+//$(document).ready(function(){
+//$(document).onload(function(){
+//    $("button").click(function(){
+                //var servTime = new Array;
+function sendReqs(){
+                var respTime = new Array;
+                var ind = 0;
+                var tt = 0;
+                var indIAT = 0;
+		var sumS = 0;
+                while(ind < 100){
+                var pFile = "parNums" + ind + ".txt";
+                //$.get('parNums.txt', function(data){
+                (function(ind)
+                {
+                $.get(pFile, function(data){
+                        
+                        var eFile = "IAT" + ind + ".txt";
+                        TservTime = data.split('\n');
+                        $("#div1").html(TservTime.length);
+                        (function(servTime)
+                        {       
+                        $.get(eFile, function(iat){
+                                iaTime = iat.split('\n');
+                                i = 0;
+                                var datetime = new Date();
+                                $("#div2").html(iaTime.length);
+                                while((new Date().getTime() - datetime.getTime()) < iaTime[i]); 
+                        
+                                while(i < (servTime.length-1)){
+                                        $("#div4").html(servTime.length);
+                                        //tm = servTime[i];
+                                        //console.log(servTime);
+                                        //var r;
+                                        (function(i, tempServe, tempIAT)
+                                        {
+                                        tm = tempServe[i];     
+					sumS += parseFloat(tm); 
+                                        //console.log(tm  + "---" +  tempIAT[i]);
+                                        $.ajax({
+                                                url: 'time.php',
+                                                type : 'GET',
+                                                //data: {time:5},
+                                                data: {time:tm},
+                                                success: function(result){
+                                                dt = new Date();        
+                                                timeI = datetime.getTime() + parseFloat(tempIAT[i]);
+                                                t1 = dt.getTime() - timeI;//(datetime.getTime() + iaTime[i]);
+                                                tt = tt + t1;// (dt.getTime() - (datetime.getTime() + iaTime[i]));
+                                              	//console.log("total resp time: " + tt);
+						//console.log("resp time for " + i + " : " +t1);
+						$("#div3").html(tt);
+                                                $("#div5").html(sumS);
+						
+                                                }
+                                        });
+                
+                                        })(i,servTime,iaTime);
+                                        i++;
+                                        
+                                        while((new Date().getTime() - datetime.getTime()) < iaTime[i]); 
+                                }
+
+                        });
+                })(TservTime);
+                });
+                })(ind);
+                ind++;
+                }
+//        });
+//});
+}
+
+</script>
+</head>
+<body onload="sendReqs()">
+
+<div id="div1"><h2>Request Sent</h2></div>
+Response time for Req1::<div id="div2"></div>
+Response time for Req2::<div id="div3"></div>
+Response time for Req2::<div id="div4"></div>
+Response time for Req2::<div id="div5"></div>
+Response time for Req2::<div id="div6"></div>
+Response time for Req2::<div id="div7"></div>
+
+<button>Get External Content</button>
+
+</body>
+</html>

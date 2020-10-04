@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        var datetime = new Date();
+        $("#div1").html(datetime.getTime());
+                $.ajax({
+                url: 'time.php',
+                type : 'GET',
+                data: {time:1},
+                success: function(result){
+                        var datetime2 = new Date();
+                        $("#div2").html(datetime2.getTime()- datetime.getTime());
+                        $.ajax({
+                        url: 'time.php',
+                        type : 'GET',
+                        data: {time:1},
+                        success: function(result1){
+                                var datetime3 = new Date();
+                                $("#div3").html(datetime3.getTime() - datetime.getTime());
+                                }
+                        });
+                        }
+                });
+        });
+});
+</script>
+</head>
+<body>
+
+<div id="div1"><h2></h2></div>
+Response Time for Req1:: <div id="div2"></div>
+Response Time for Req2:: <div id="div3"></div>
+
+<button>Send Reqs</button>
+
+</body>
+</html>
+
+

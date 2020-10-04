@@ -1,0 +1,26 @@
+client.c , client_old.c
+-----------------------
+
+Macros: 
+REQRATE: Target Request Rate(Number of requests per second per connection)
+DURATION: Time in seconds to run the experiment
+NUM_REQS: Number of request parameters(arrival time and servie time) to pregenerate. Generate twice the number required for the duration with uniform inter arrival time. 
+IAT: Mean inter arrival time for requests
+NUMFILES: Number of files to write the pre generated parameters to. This is done to decrease the overhead of keeping a large file open.
+
+1. Generate inter arrival times with mean IAT
+2. Generate service times with pareto distribution. Mean and alpha values are apecified in main().
+3. The connection is established. 
+4. Each request contains its service time in payload.
+4. Each request waits for the previous one to complete before transmission. At one time, there is only one inflight request. 
+
+
+
+Server.c
+--------
+
+1. The server waits for a request. 
+2. It reads the payload.
+3. For FCFS workload, it busy loops for specified service time and a reply is sent afterwards. 
+
+

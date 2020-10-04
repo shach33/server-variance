@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        var datetime = new Date();
+	
+	        $("#div1").html(datetime.getTime());
+                $.ajax({
+                url: 'time.php',
+                type : 'GET',
+                data: {time:0.003229,field2 : "12"},
+                success: function(result){
+                        var datetime2 = new Date();
+                        $("#div2").html(datetime2.getTime() - datetime.getTime());
+                        }
+                });
+                $.ajax({
+                url: 'time.php',
+                type : 'GET',
+                data: {time:0.003229, field2: "14"},
+                success: function(result1){
+                        var datetime3 = new Date();
+                        $("#div3").html(datetime3.getTime() - datetime.getTime());
+                        }
+                });
+        });
+});
+</script>
+</head>
+<body>
+
+<div id="div1"><h2>Request Sent</h2></div>
+Response time for Req1::<div id="div2"></div>
+Response time for Req2::<div id="div3"></div>
+
+<button>Get External Content</button>
+
+</body>
+</html>
+
+
+
+
