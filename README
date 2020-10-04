@@ -1,0 +1,13 @@
+Server Variance
+
+The response time of a request includes serving time and waiting time. 
+Serving time is the time when the 
+request is being actively worked upon, in order to generate a response.
+Waiting time is the time the requesnts spends in the queue, waiting to be served.
+
+In addition to mean service time, the variability of the service time is also 
+a factor to reduce response time. 
+
+Through this project, I worked on the initial idea to explore the alternative 
+approach of reducing variability in service time as a means to reduce response 
+time, even if doing so increases the mean service time.
